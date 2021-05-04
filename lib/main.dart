@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_finder_flutter/authentication/screens/boot.dart';
+import 'package:tutor_finder_flutter/components/authentication/screens/boot.dart';
 
 void main() => runApp(
       MaterialApp(
