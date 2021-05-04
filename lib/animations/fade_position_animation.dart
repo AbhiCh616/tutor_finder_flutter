@@ -25,9 +25,9 @@ class FadePositionAnimation extends StatelessWidget {
     final _tween = MultiTween<AniProps>()
       ..add(AniProps.opacity, startOpacity.tweenTo(finalOpacity),
           500.milliseconds)
-      ..add(AniProps.translateX, startX.tweenTo(0.0), 500.milliseconds,
+      ..add(AniProps.translateX, (startX).tweenTo(0.0), 500.milliseconds,
           Curves.easeOut)
-      ..add(AniProps.translateY, startY.tweenTo(0.0), 500.milliseconds,
+      ..add(AniProps.translateY, (startY).tweenTo(0.0), 500.milliseconds,
           Curves.easeOut);
 
     return PlayAnimation<MultiTweenValues<AniProps>>(
@@ -42,6 +42,7 @@ class FadePositionAnimation extends StatelessWidget {
             value.get(AniProps.translateX),
             value.get(AniProps.translateY),
           ),
+          child: child,
         ),
       ),
     );
