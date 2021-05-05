@@ -7,24 +7,43 @@ class BootScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            'HELLO!',
-            style: TextStyle(
-              fontSize: 50,
-              fontWeight: FontWeight.bold,
+          Padding(
+            padding: const EdgeInsets.only(left: 40, top: 40),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: FadePositionAnimation(
+                delay: 1,
+                startY: 50,
+                child: Text(
+                  'HELLO!',
+                  style: TextStyle(
+                    fontSize: 50,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
           ),
-          SizedBox(
-            width: (MediaQuery.of(context).size.height / 2.5) * 1.149395,
-            height: MediaQuery.of(context).size.height / 2.5,
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return TwoPeopleSeatingIllustration(
-                  height: constraints.maxHeight,
-                  width: constraints.maxWidth,
-                );
-              },
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.height / 8,
+              left: 20,
+              right: 20,
+            ),
+            child: SizedBox(
+              width: (MediaQuery.of(context).size.height / 2.5) * 1.149395,
+              height: MediaQuery.of(context).size.height / 2.5,
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return TwoPeopleSeatingIllustration(
+                    height: constraints.maxHeight,
+                    width: constraints.maxWidth,
+                  );
+                },
+              ),
             ),
           ),
         ],
