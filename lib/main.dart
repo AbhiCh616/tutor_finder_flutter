@@ -5,8 +5,6 @@ void main() => runApp(
       MaterialApp(
         theme: ThemeData(fontFamily: 'Poppins'),
         debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          body: BootScreen(),
-        ),
+        home: BootScreen(),
       ),
     );

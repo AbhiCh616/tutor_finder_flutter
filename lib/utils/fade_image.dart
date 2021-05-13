@@ -18,7 +18,7 @@ class FadePositionImage extends StatelessWidget {
       this.top = 0.0,
       required this.height,
       required this.width,
-      required this.fadeDelay,
+      this.fadeDelay = 0.0,
       this.fadeStartOpacity = 0.0,
       this.fadeEndOpacity = 1.0,
       this.fadeX = 0.0,
