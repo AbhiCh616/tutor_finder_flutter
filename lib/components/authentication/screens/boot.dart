@@ -41,6 +41,7 @@ class _BootScreenState extends State<BootScreen> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            // Heading
             Padding(
               padding: const EdgeInsets.only(left: 40, top: 40),
               child: Align(
@@ -58,6 +59,7 @@ class _BootScreenState extends State<BootScreen> {
                 ),
               ),
             ),
+            // Illustration
             Padding(
               padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).size.height / 8,
