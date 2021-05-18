@@ -15,12 +15,10 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
-  final userNameController = TextEditingController();
   final passwordController = TextEditingController();
   bool showPassword = false;
 
   bool isEmailCorrect = false;
-  bool isUsernameCorrect = false;
   bool isPasswordCorrect = false;
   bool isButtonEnabled = false;
 
@@ -31,13 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
     // Start listening to changes.
     emailController.addListener(validate);
     passwordController.addListener(validate);
-    userNameController.addListener(validate);
   }
 
   @override
   void dispose() {
     emailController.dispose();
-    userNameController.dispose();
     passwordController.dispose();
     super.dispose();
   }
@@ -49,12 +45,6 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     }
 
-    if (isUsernameCorrect != validateUsername(userNameController.text)) {
-      setState(() {
-        isUsernameCorrect = !isUsernameCorrect;
-      });
-    }
-
     if (isPasswordCorrect != validatePassword(passwordController.text)) {
       setState(() {
         isPasswordCorrect = !isPasswordCorrect;
@@ -62,8 +52,11 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     setState(() {
-      isButtonEnabled =
-          isEmailCorrect && (isUsernameCorrect || isPasswordCorrect);
+      if (this.widget.screenType == 'LOG IN') {
+        isButtonEnabled = isEmailCorrect && isPasswordCorrect;
+      } else {
+        isButtonEnabled = isEmailCorrect;
+      }
     });
   }
 
@@ -146,88 +139,61 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      // Second (password/username) heading
-                      Padding(
-                        padding: const EdgeInsets.only(top: 30, bottom: 20),
-                        child: FadePositionAnimation(
-                          delay: 1,
-                          child: Text(
-                            (() {
-                              if (this.widget.screenType == 'LOG IN') {
-                                return 'YOUR PASSWORD';
-                              }
-                              return 'CREATE UNIQUE USERNAME';
-                            })(),
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
+                      // Password heading
+                      if (this.widget.screenType == 'LOG IN')
+                        Padding(
+                          padding: const EdgeInsets.only(top: 30, bottom: 20),
+                          child: FadePositionAnimation(
+                            delay: 1,
+                            child: Text(
+                              'YOUR PASSWORD',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      // Second (password/username) field
-                      FadePositionAnimation(
-                        delay: 1,
-                        startY: 20,
-                        child: Column(
-                          children: [
-                            if (this.widget.screenType == 'LOG IN')
-                              TextFormField(
-                                controller: passwordController,
-                                obscureText: !showPassword,
-                                enableSuggestions: false,
-                                autocorrect: false,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.grey[200],
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 20),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  suffixIcon: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        showPassword = !showPassword;
-                                      });
-                                    },
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 10.0),
-                                      child: Icon(showPassword
-                                          ? Icons.visibility
-                                          : Icons.visibility_off),
-                                    ),
-                                  ),
+                      // Optional password field
+                      if (this.widget.screenType == 'LOG IN')
+                        FadePositionAnimation(
+                          delay: 1,
+                          startY: 20,
+                          child: TextFormField(
+                            controller: passwordController,
+                            obscureText: !showPassword,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.grey[200],
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 20),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              suffixIcon: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    showPassword = !showPassword;
+                                  });
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 10.0),
+                                  child: Icon(showPassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
                                 ),
                               ),
-                            if (this.widget.screenType == 'SIGN UP')
-                              TextFormField(
-                                controller: userNameController,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.grey[200],
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 20),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                              ),
-                          ],
+                            ),
+                          ),
                         ),
-                      ),
                       // Button
                       SizedBox(
                         width: double.maxFinite,
