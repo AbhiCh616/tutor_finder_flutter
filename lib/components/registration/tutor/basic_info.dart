@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 class BasicInfo extends StatefulWidget {
   @override
@@ -11,6 +12,14 @@ class BasicInfo extends StatefulWidget {
 class _BasicInfoState extends State<BasicInfo> {
   File? _image;
   final picker = ImagePicker();
+  final nameController = TextEditingController();
+  int _currentValue = 18;
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    super.dispose();
+  }
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -31,17 +40,14 @@ class _BasicInfoState extends State<BasicInfo> {
         child: Padding(
           padding: const EdgeInsets.all(40.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Heading
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'About Me',
-                  style: TextStyle(
-                    fontSize: 50,
-                    fontWeight: FontWeight.bold,
-                  ),
+              Text(
+                'About Me',
+                style: TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               // Image picker
@@ -64,6 +70,65 @@ class _BasicInfoState extends State<BasicInfo> {
                     ),
                   ),
                 ),
+              ),
+              // Name heading
+              Padding(
+                padding: const EdgeInsets.only(top: 40.0, left: 10, bottom: 10),
+                child: Text(
+                  'FULL NAME',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              // Name field
+              TextFormField(
+                style: TextStyle(fontSize: 30),
+                controller: nameController,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.transparent,
+                  contentPadding: EdgeInsets.only(left: 10, right: 10),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  hintText: 'Enter here',
+                ),
+              ),
+              // Age heading
+              Padding(
+                padding: const EdgeInsets.only(top: 30.0, left: 10),
+                child: Text(
+                  'AGE',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              // Age picker
+              NumberPicker(
+                value: _currentValue,
+                minValue: 10,
+                maxValue: 100,
+                onChanged: (value) => setState(() => _currentValue = value),
+                axis: Axis.horizontal,
+                selectedTextStyle: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 60,
+                ),
+                textStyle: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 50,
+                ),
+                itemHeight: 90,
               ),
             ],
           ),
