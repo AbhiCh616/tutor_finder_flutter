@@ -1,10 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tutor_finder_flutter/components/authentication/logic/user.dart';
 import 'dart:math' as math;
 
 import 'package:tutor_finder_flutter/components/authentication/logic/validators.dart';
+import 'package:tutor_finder_flutter/components/search/screens/search_screen.dart';
 
 class SignupPassword extends StatefulWidget {
+  final String email;
+
+  SignupPassword(this.email);
+
   @override
   _SignupPasswordState createState() => _SignupPasswordState();
 }
@@ -37,7 +42,19 @@ class _SignupPasswordState extends State<SignupPassword> {
     });
   }
 
-  signUp() {}
+  signUp() async {
+    await createUser(widget.email, password);
+
+    if (await isLoggedIn()) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (_, __, ___) => SearchScreen(),
+        ),
+        ModalRoute.withName('/'),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

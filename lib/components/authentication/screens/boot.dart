@@ -4,6 +4,7 @@ import 'package:tutor_finder_flutter/animations/fade_position_animation.dart';
 import 'package:tutor_finder_flutter/components/authentication/illustrations/two_people_seating_illustration.dart';
 import 'package:tutor_finder_flutter/components/authentication/logic/user.dart';
 import 'package:tutor_finder_flutter/components/authentication/screens/authentication_screen.dart';
+import 'package:tutor_finder_flutter/components/search/screens/search_screen.dart';
 
 class BootScreen extends StatefulWidget {
   @override
@@ -18,7 +19,15 @@ class _BootScreenState extends State<BootScreen> {
     Future.delayed(const Duration(milliseconds: 3700), () {
       isLoggedIn().then((value) => {
             if (value)
-              {}
+              {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (_, __, ___) => SearchScreen(),
+                  ),
+                  ModalRoute.withName('/'),
+                ),
+              }
             else
               {
                 Navigator.pushReplacement(

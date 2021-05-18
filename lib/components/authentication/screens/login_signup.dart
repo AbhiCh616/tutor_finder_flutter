@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tutor_finder_flutter/animations/fade_position_animation.dart';
+import 'package:tutor_finder_flutter/components/authentication/logic/user.dart';
 import 'package:tutor_finder_flutter/components/authentication/logic/validators.dart';
 import 'package:tutor_finder_flutter/components/authentication/screens/signup_password.dart';
+import 'package:tutor_finder_flutter/components/search/screens/search_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   final String screenType;
@@ -19,7 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool showPassword = false;
 
   bool isEmailCorrect = false;
-  bool isPasswordCorrect = false;
   bool isButtonEnabled = false;
 
   @override
@@ -45,29 +45,33 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     }
 
-    if (isPasswordCorrect != validatePassword(passwordController.text)) {
-      setState(() {
-        isPasswordCorrect = !isPasswordCorrect;
-      });
-    }
-
     setState(() {
-      if (this.widget.screenType == 'LOG IN') {
-        isButtonEnabled = isEmailCorrect && isPasswordCorrect;
-      } else {
-        isButtonEnabled = isEmailCorrect;
-      }
+      isButtonEnabled = isEmailCorrect;
     });
   }
 
-  goToNextScreen() {
-    if (this.widget.screenType == 'LOG IN') {}
+  goToNextScreen() async {
+    // Log in
+    if (this.widget.screenType == 'LOG IN') {
+      await logIn(emailController.text, passwordController.text);
+
+      if (await isLoggedIn()) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (_, __, ___) => SearchScreen(),
+          ),
+          ModalRoute.withName('/'),
+        );
+      }
+    }
+    // Go to signup password screen
     if (this.widget.screenType == 'SIGN UP') {
       Navigator.push(
         context,
         PageRouteBuilder(
           transitionDuration: Duration(seconds: 2),
-          pageBuilder: (_, __, ___) => SignupPassword(),
+          pageBuilder: (_, __, ___) => SignupPassword(emailController.text),
         ),
       );
     }
