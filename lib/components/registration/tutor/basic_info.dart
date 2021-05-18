@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class BasicInfo extends StatefulWidget {
   @override
@@ -6,6 +9,21 @@ class BasicInfo extends StatefulWidget {
 }
 
 class _BasicInfoState extends State<BasicInfo> {
+  File? _image;
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,34 +47,20 @@ class _BasicInfoState extends State<BasicInfo> {
               // Image picker
               Padding(
                 padding: const EdgeInsets.only(top: 40.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(200.0),
-                  child:
-                      // Placeholder icon
-                      ConstrainedBox(
-                    constraints: BoxConstraints(
-                        maxHeight: 150,
-                        maxWidth: 150,
-                        minHeight: 150,
-                        minWidth: 150),
-                    child: ColoredBox(
-                      color: Colors.grey.shade200,
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () {
-                            print("tapped");
-                          },
-                          borderRadius: BorderRadius.all(Radius.circular(200)),
-                          child: Padding(
-                            padding: EdgeInsets.all(20),
-                            child: Icon(
-                              Icons.add_a_photo_outlined,
-                              size: 50,
-                            ),
-                          ),
-                        ),
-                      ),
+                child: Material(
+                  shape: CircleBorder(),
+                  clipBehavior: Clip.hardEdge,
+                  color: Colors.transparent,
+                  child: Ink.image(
+                    image: _image != null
+                        ? FileImage(_image!)
+                        : AssetImage('assets/images/camera.png')
+                            as ImageProvider,
+                    fit: BoxFit.cover,
+                    width: 150.0,
+                    height: 150.0,
+                    child: InkWell(
+                      onTap: getImage,
                     ),
                   ),
                 ),
