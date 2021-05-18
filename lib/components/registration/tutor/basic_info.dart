@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:tutor_finder_flutter/components/registration/tutor/distance_picker.dart';
 
 import 'package:tutor_finder_flutter/components/registration/utils/gender.dart';
 
@@ -44,7 +45,7 @@ class _BasicInfoState extends State<BasicInfo> {
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: 400),
             child: Padding(
-              padding: const EdgeInsets.all(40.0),
+              padding: const EdgeInsets.all(30.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -71,8 +72,8 @@ class _BasicInfoState extends State<BasicInfo> {
                               : AssetImage('assets/images/camera.png')
                                   as ImageProvider,
                           fit: BoxFit.cover,
-                          width: 150.0,
-                          height: 150.0,
+                          width: 130.0,
+                          height: 130.0,
                           child: InkWell(
                             onTap: getImage,
                           ),
@@ -94,7 +95,7 @@ class _BasicInfoState extends State<BasicInfo> {
                   ),
                   // Name field
                   TextFormField(
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(fontSize: 28),
                     controller: nameController,
                     decoration: InputDecoration(
                       filled: true,
@@ -132,13 +133,13 @@ class _BasicInfoState extends State<BasicInfo> {
                     selectedTextStyle: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 60,
+                      fontSize: 50,
                     ),
                     textStyle: TextStyle(
                       color: Colors.grey[600],
-                      fontSize: 50,
+                      fontSize: 40,
                     ),
-                    itemHeight: 90,
+                    itemHeight: 80,
                   ),
                   // Gender heading
                   Padding(
@@ -152,146 +153,185 @@ class _BasicInfoState extends State<BasicInfo> {
                       ),
                     ),
                   ),
-                  // Male
-                  Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: _gender == Gender.Male
-                          ? Colors.blue[300]
-                          : Colors.grey[200],
-                    ),
-                    height: 100,
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            _gender = Gender.Male;
-                          });
-                        },
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              _gender == Gender.Male
-                                  ? 'assets/images/male_selected.png'
-                                  : 'assets/images/male_unselected.png',
-                              height: 50,
-                              width: 50,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          // Male
+                          Container(
+                            margin: EdgeInsets.only(bottom: 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: _gender == Gender.Male
+                                  ? Colors.blue[300]
+                                  : Colors.grey[200],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 40.0),
-                              child: Text(
-                                'Male',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: _gender == Gender.Male
-                                      ? Colors.white
-                                      : Color(0xffadb5bd),
+                            height: 100,
+                            width: 100,
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    _gender = Gender.Male;
+                                  });
+                                },
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(30),
+                                  child: Image.asset(
+                                    _gender == Gender.Male
+                                        ? 'assets/images/male_selected.png'
+                                        : 'assets/images/male_unselected.png',
+                                  ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Female
-                  Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: _gender == Gender.Female
-                          ? Colors.pink[300]
-                          : Colors.grey[200],
-                    ),
-                    height: 100,
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            _gender = Gender.Female;
-                          });
-                        },
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              _gender == Gender.Female
-                                  ? 'assets/images/female_selected.png'
-                                  : 'assets/images/female_unselected.png',
-                              height: 55,
-                              width: 55,
+                          ),
+                          Text(
+                            'Male',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[800],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
-                              child: Text(
-                                'Female',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: _gender == Gender.Female
-                                      ? Colors.white
-                                      : Color(0xffadb5bd),
+                          ),
+                        ],
+                      ),
+                      // Female
+                      Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(bottom: 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: _gender == Gender.Female
+                                  ? Colors.pink[300]
+                                  : Colors.grey[200],
+                            ),
+                            height: 100,
+                            width: 100,
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    _gender = Gender.Female;
+                                  });
+                                },
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(25.0),
+                                  child: Image.asset(
+                                    _gender == Gender.Female
+                                        ? 'assets/images/female_selected.png'
+                                        : 'assets/images/female_unselected.png',
+                                    height: 55,
+                                    width: 55,
+                                  ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          Text(
+                            'Female',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[800],
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
+                    ],
                   ),
                   // Other
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: _gender == Gender.Other
-                          ? Colors.purple[300]
-                          : Colors.grey[200],
+                  Center(
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 20, bottom: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: _gender == Gender.Other
+                                ? Colors.purple[300]
+                                : Colors.grey[200],
+                          ),
+                          height: 100,
+                          width: 100,
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _gender = Gender.Other;
+                                });
+                              },
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(25.0),
+                                child: Image.asset(
+                                  _gender == Gender.Other
+                                      ? 'assets/images/transgender_selected.png'
+                                      : 'assets/images/transgender_unselected.png',
+                                  height: 60,
+                                  width: 60,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          'Other',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                      ],
                     ),
-                    height: 100,
+                  ),
+                  // Next button
+                  Container(
+                    margin: EdgeInsets.only(top: 30),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.blue,
+                    ),
+                    height: 70,
+                    width: 500,
                     child: Material(
                       color: Colors.transparent,
                       child: InkWell(
                         onTap: () {
-                          setState(() {
-                            _gender = Gender.Other;
-                          });
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              transitionDuration: Duration(seconds: 2),
+                              pageBuilder: (_, __, ___) => DistancePicker(),
+                            ),
+                          );
                         },
                         borderRadius: BorderRadius.all(
-                          Radius.circular(20),
+                          Radius.circular(50),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              _gender == Gender.Other
-                                  ? 'assets/images/transgender_selected.png'
-                                  : 'assets/images/transgender_unselected.png',
-                              height: 60,
-                              width: 60,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 38.0),
-                              child: Text(
-                                'Other',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: _gender == Gender.Other
-                                      ? Colors.white
-                                      : Color(0xffadb5bd),
-                                ),
+                            Text(
+                              'NEXT',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
                               ),
                             ),
                           ],
