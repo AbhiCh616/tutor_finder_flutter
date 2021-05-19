@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_finder_flutter/components/registration/tutor/basic_info.dart';
-import 'package:tutor_finder_flutter/components/registration/tutor/distance_picker.dart';
+import 'package:tutor_finder_flutter/components/registration/tutor/subject_fees.dart';
 
 void main() => runApp(
       MaterialApp(

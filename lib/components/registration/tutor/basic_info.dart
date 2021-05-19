@@ -300,18 +300,12 @@ class _BasicInfoState extends State<BasicInfo> {
                     ),
                   ),
                   // Next button
-                  Container(
-                    margin: EdgeInsets.only(top: 30),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.blue,
-                    ),
-                    height: 70,
-                    width: 500,
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: () {
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24),
+                    child: SizedBox(
+                      width: 500,
+                      child: TextButton(
+                        onPressed: () {
                           Navigator.push(
                             context,
                             PageRouteBuilder(
@@ -320,21 +314,21 @@ class _BasicInfoState extends State<BasicInfo> {
                             ),
                           );
                         },
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50),
+                        child: Text(
+                          'NEXT',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'NEXT',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          primary: Colors.white,
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
                         ),
                       ),
                     ),
