@@ -194,10 +194,13 @@ class _SubjectFeesState extends State<SubjectFees> {
                             selectedItemBuilder: (BuildContext context) {
                               return dropDownOptions.map((String value) {
                                 return Center(
-                                  child: Text(
-                                    dropdownValue,
-                                    style: TextStyle(
-                                      fontSize: 20,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: Text(
+                                      dropdownValue,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
                                 );
@@ -210,7 +213,7 @@ class _SubjectFeesState extends State<SubjectFees> {
                                 child: Text(
                                   value,
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 18,
                                   ),
                                 ),
                               );

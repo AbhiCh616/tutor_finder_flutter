@@ -88,14 +88,14 @@ class _BasicInfoState extends State<BasicInfo> {
                     child: Text(
                       'FULL NAME',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                   // Name field
                   TextFormField(
-                    style: TextStyle(fontSize: 28),
+                    style: TextStyle(fontSize: 24),
                     controller: nameController,
                     decoration: InputDecoration(
                       filled: true,
@@ -118,7 +118,7 @@ class _BasicInfoState extends State<BasicInfo> {
                     child: Text(
                       'AGE',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -133,11 +133,11 @@ class _BasicInfoState extends State<BasicInfo> {
                     selectedTextStyle: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 50,
+                      fontSize: 40,
                     ),
                     textStyle: TextStyle(
                       color: Colors.grey[600],
-                      fontSize: 40,
+                      fontSize: 30,
                     ),
                     itemHeight: 80,
                   ),
@@ -148,7 +148,7 @@ class _BasicInfoState extends State<BasicInfo> {
                     child: Text(
                       'GENDER',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -167,8 +167,8 @@ class _BasicInfoState extends State<BasicInfo> {
                                   ? Colors.blue[300]
                                   : Colors.grey[200],
                             ),
-                            height: 100,
-                            width: 100,
+                            height: 90,
+                            width: 90,
                             child: Material(
                               color: Colors.transparent,
                               child: InkWell(
@@ -181,7 +181,7 @@ class _BasicInfoState extends State<BasicInfo> {
                                   Radius.circular(20),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(30),
+                                  padding: EdgeInsets.all(25),
                                   child: Image.asset(
                                     _gender == Gender.Male
                                         ? 'assets/images/male_selected.png'
@@ -194,7 +194,7 @@ class _BasicInfoState extends State<BasicInfo> {
                           Text(
                             'Male',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.grey[800],
                             ),
@@ -212,8 +212,8 @@ class _BasicInfoState extends State<BasicInfo> {
                                   ? Colors.pink[300]
                                   : Colors.grey[200],
                             ),
-                            height: 100,
-                            width: 100,
+                            height: 90,
+                            width: 90,
                             child: Material(
                               color: Colors.transparent,
                               child: InkWell(
@@ -226,7 +226,7 @@ class _BasicInfoState extends State<BasicInfo> {
                                   Radius.circular(20),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(25.0),
+                                  padding: const EdgeInsets.all(23.0),
                                   child: Image.asset(
                                     _gender == Gender.Female
                                         ? 'assets/images/female_selected.png'
@@ -241,7 +241,7 @@ class _BasicInfoState extends State<BasicInfo> {
                           Text(
                             'Female',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.grey[800],
                             ),
@@ -262,8 +262,8 @@ class _BasicInfoState extends State<BasicInfo> {
                                 ? Colors.purple[300]
                                 : Colors.grey[200],
                           ),
-                          height: 100,
-                          width: 100,
+                          height: 90,
+                          width: 90,
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
@@ -276,7 +276,7 @@ class _BasicInfoState extends State<BasicInfo> {
                                 Radius.circular(20),
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.all(25.0),
+                                padding: const EdgeInsets.all(20.0),
                                 child: Image.asset(
                                   _gender == Gender.Other
                                       ? 'assets/images/transgender_selected.png'
@@ -291,7 +291,7 @@ class _BasicInfoState extends State<BasicInfo> {
                         Text(
                           'Other',
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Colors.grey[800],
                           ),
