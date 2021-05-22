@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-
-const BASE_URL = 'http://192.168.1.35:8000';
+import 'package:tutor_finder_flutter/components/registration/utils/constants.dart';
 
 createUser(String email, String password) async {
   Uri url = Uri.parse(BASE_URL + '/api/accounts/create/');

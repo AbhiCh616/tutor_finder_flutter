@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_finder_flutter/components/registration/logic/tutor_registration.dart';
 import 'package:tutor_finder_flutter/components/registration/tutor/basic_info.dart';
 
 class SubjectFees extends StatefulWidget {
@@ -234,6 +235,7 @@ class _SubjectFeesState extends State<SubjectFees> {
                   width: 500,
                   child: TextButton(
                     onPressed: () {
+                      //createTutorProfile();
                       Navigator.push(
                         context,
                         PageRouteBuilder(
