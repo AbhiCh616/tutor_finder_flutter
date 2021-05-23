@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_finder_flutter/components/registration/logic/tutor_registration.dart';
 import 'package:tutor_finder_flutter/components/registration/tutor/basic_info.dart';
+import 'package:tutor_finder_flutter/components/student_search/screens/student_search.dart';
+import 'package:tutor_finder_flutter/components/student_search/screens/tutor_list.dart';
 
 class SubjectFees extends StatefulWidget {
   @override
@@ -240,7 +242,7 @@ class _SubjectFeesState extends State<SubjectFees> {
                         context,
                         PageRouteBuilder(
                           transitionDuration: Duration(seconds: 2),
-                          pageBuilder: (_, __, ___) => BasicInfo(),
+                          pageBuilder: (_, __, ___) => StudentSearch(),
                         ),
                       );
                     },

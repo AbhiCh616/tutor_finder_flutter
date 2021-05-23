@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_finder_flutter/components/registration/tutor/basic_info.dart';
 
 class SelectRole extends StatelessWidget {
   @override
@@ -44,7 +45,13 @@ class SelectRole extends StatelessWidget {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        print("tapped");
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            transitionDuration: Duration(seconds: 2),
+                            pageBuilder: (_, __, ___) => BasicInfo(),
+                          ),
+                        );
                       },
                       borderRadius: BorderRadius.all(Radius.circular(26)),
                       child: Padding(

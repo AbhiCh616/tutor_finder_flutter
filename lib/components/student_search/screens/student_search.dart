@@ -22,44 +22,37 @@ class _StudentSearchState extends State<StudentSearch> {
 
   final List<TutorBriefInfo> listData = [
     TutorBriefInfo(
-        "Abhishek Chouhan",
-        4.3,
+        "Anamika Singh",
+        4.1,
         [
           "english",
           "science",
           "maths",
-          "physics",
         ],
-        3000,
+        5000,
         "Monthly"),
     TutorBriefInfo(
         "Abhishek Chouhan",
         4.3,
         [
-          "agwg",
+          "physics",
+        ],
+        3000,
+        "Monthly"),
+    TutorBriefInfo(
+        "Achal",
+        3.0,
+        [
           "science",
           "maths",
-          "physics",
         ],
-        3000,
-        "Monthly"),
+        200,
+        "Hourly"),
     TutorBriefInfo(
-        "Abhishek Chouhan",
-        4.3,
+        "Arnav",
+        3.3,
         [
-          "agwg",
-          "science",
-          "maths",
-          "physics",
-        ],
-        3000,
-        "Monthly"),
-    TutorBriefInfo(
-        "Abhishek Chouhan",
-        4.3,
-        [
-          "agwg",
-          "science",
+          "astrophysics",
           "maths",
           "physics",
         ],
