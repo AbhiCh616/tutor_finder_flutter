@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tutor_finder_flutter/components/student_search/models/tutor_brief_info.dart';
 import 'package:tutor_finder_flutter/utils/color.dart';
+import 'package:tutor_finder_flutter/components/tutor_profile/models/review.dart';
 
 class StudentSearch extends StatefulWidget {
   @override
@@ -22,15 +23,21 @@ class _StudentSearchState extends State<StudentSearch> {
 
   final List<TutorBriefInfo> listData = [
     TutorBriefInfo(
-        "Anamika Singh",
-        4.1,
-        [
-          "english",
-          "science",
-          "maths",
-        ],
-        5000,
-        "Monthly"),
+      "Anamika Singh",
+      4.1,
+      [
+        "english",
+        "science",
+        "maths",
+      ],
+      5000,
+      "Monthly",
+      [
+        Review(3.4, '16 Mar 19', 'I am very happy'),
+        Review(3.4, '16 Mar 19', 'I am very happy'),
+      ],
+    ),
+    /*
     TutorBriefInfo(
         "Abhishek Chouhan",
         4.3,
@@ -68,7 +75,7 @@ class _StudentSearchState extends State<StudentSearch> {
           "physics",
         ],
         3000,
-        "Monthly"),
+        "Monthly"),*/
   ];
 
   Widget buildSubjectChips() {

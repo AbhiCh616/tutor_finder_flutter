@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_finder_flutter/components/student_search/models/tutor_brief_info.dart';
 import 'package:tutor_finder_flutter/utils/color.dart';
+import 'package:tutor_finder_flutter/components/tutor_profile/models/review.dart';
+import 'package:tutor_finder_flutter/components/tutor_profile/screens/tutor_profile.dart';
 
 class TutorList extends StatefulWidget {
   @override
@@ -9,7 +11,83 @@ class TutorList extends StatefulWidget {
 
 class _TutorListState extends State<TutorList> {
   final List<TutorBriefInfo> tutorBriefInfoList = [
-    TutorBriefInfo('Abhishek Chouhan', 4.3, ["A"], 5000, "Monthly")
+    TutorBriefInfo(
+      'Anamika Singh',
+      0.0,
+      ["english", "science", "maths"],
+      5000,
+      "Monthly",
+      [],
+    ),
+    TutorBriefInfo(
+      'Abhishek Chouhan',
+      4.3,
+      ["A"],
+      100,
+      "Hourly",
+      [
+        Review(4.3, '16 Mar \'19', 'He teaches good!'),
+        Review(4.3, '20 Feb \'21',
+            'The best thing I liked about his teaching style is the way of the.')
+      ],
+    ),
+    TutorBriefInfo(
+      'Achal Yash',
+      4,
+      ["CS"],
+      10000,
+      "Yearly",
+      [
+        Review(5.0, '15 Jan \'20', 'Had been long but he teaches good!'),
+        Review(4.0, '20 Feb \'21', 'The best teacher for CS.'),
+      ],
+    ),
+    TutorBriefInfo(
+      'Sushmita Tiwari',
+      4.3,
+      ["A"],
+      100,
+      "Hourly",
+      [
+        Review(4.3, '16 Mar \'19', 'He teaches good!'),
+        Review(4.3, '20 Feb \'21',
+            'The best thing I liked about his teaching style is the way of the.')
+      ],
+    ),
+    TutorBriefInfo(
+      'Ray Yash',
+      4,
+      ["CS"],
+      10000,
+      "Yearly",
+      [
+        Review(5.0, '15 Jan \'20', 'Had been long but he teaches good!'),
+        Review(4.0, '20 Feb \'21', 'The best teacher for CS.'),
+      ],
+    ),
+    TutorBriefInfo(
+      'Aakash Choubey',
+      4.3,
+      ["A"],
+      100,
+      "Hourly",
+      [
+        Review(4.3, '16 Mar \'19', 'He teaches good!'),
+        Review(4.3, '20 Feb \'21',
+            'The best thing I liked about his teaching style is the way of the.')
+      ],
+    ),
+    TutorBriefInfo(
+      'Anand Jain',
+      4,
+      ["CS"],
+      10000,
+      "Yearly",
+      [
+        Review(5.0, '15 Jan \'20', 'Had been long but he teaches good!'),
+        Review(4.0, '20 Feb \'21', 'The best teacher for CS.'),
+      ],
+    ),
   ];
 
   @override
@@ -27,7 +105,7 @@ class _TutorListState extends State<TutorList> {
           body: ListView.builder(
             itemCount: tutorBriefInfoList.length,
             itemBuilder: (context, index) {
-              return createTutorTile(tutorBriefInfoList[index]);
+              return createTutorTile(tutorBriefInfoList[index], context);
             },
           ),
         ),
@@ -121,97 +199,124 @@ SliverAppBar createSearchTagsBar(List<String> subjects) {
   );
 }
 
-Widget createTutorTile(TutorBriefInfo tutorBriefInfo) => Container(
-      padding: EdgeInsets.all(16),
-      margin: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(20),
+Widget createTutorTile(TutorBriefInfo tutorBriefInfo, BuildContext context) =>
+    GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            transitionDuration: Duration(seconds: 2),
+            pageBuilder: (_, __, ___) => TutorProfile(tutorBriefInfo.name,
+                tutorBriefInfo.rating, tutorBriefInfo.reviews),
+          ),
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.all(16),
+        margin: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: hexToColor('#EBF5FF'),
+              spreadRadius: 0.5,
+              blurRadius: 10,
+              offset: Offset(0, 3),
+            )
+          ],
         ),
-        boxShadow: [
-          BoxShadow(
-            color: hexToColor('#EBF5FF'),
-            spreadRadius: 0.5,
-            blurRadius: 10,
-            offset: Offset(0, 3),
-          )
-        ],
-      ),
-      child: Stack(
-        children: [
-          // Profile Pic
-          CircleAvatar(
-            foregroundImage: NetworkImage('https://via.placeholder.com/150'),
-            backgroundColor: Colors.grey,
-            radius: 40,
-          ),
-          // Name
-          Positioned(
-            left: 104,
-            top: 13,
-            child: Text(
-              tutorBriefInfo.name,
-              style: TextStyle(
-                fontSize: 16,
-              ),
+        child: Stack(
+          children: [
+            // Profile Pic
+
+            CircleAvatar(
+              foregroundImage: NetworkImage('https://via.placeholder.com/150'),
+              backgroundColor: Colors.grey,
+              radius: 40,
             ),
-          ),
-          // Rating and Charge
-          Positioned(
-            left: 100,
-            top: 43,
-            child: RichText(
-              text: TextSpan(
+
+            // Name
+
+            Positioned(
+              left: 104,
+              top: 13,
+              child: Text(
+                tutorBriefInfo.name,
                 style: TextStyle(
-                  color: Colors.black,
                   fontSize: 16,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
                 ),
-                children: [
-                  // Star icon
-                  WidgetSpan(
-                    child: Icon(
-                      Icons.star,
-                      color: Colors.yellow.shade700,
-                    ),
-                  ),
-                  // Rating
-                  TextSpan(
-                    text: ' ' + tutorBriefInfo.rating.toString(),
-                  ),
-                  // Currency symbol
-                  TextSpan(
-                    text: '    ' + String.fromCharCode(8377),
-                    style: TextStyle(
-                      color: Colors.yellow.shade800,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  // Charge
-                  TextSpan(
-                    text: ' ' + tutorBriefInfo.charge.toString(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  // Charge duration
-                  TextSpan(
-                    text: '/' +
-                        tutorBriefInfo.chargeDuration
-                            .toLowerCase()
-                            .substring(0, 1),
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
               ),
             ),
-          ),
-        ],
+
+            // Rating and Charge
+
+            Positioned(
+              left: 100,
+              top: 43,
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                  ),
+                  children: [
+                    // Star icon
+
+                    WidgetSpan(
+                      child: Icon(
+                        Icons.star,
+                        color: Colors.yellow.shade700,
+                      ),
+                    ),
+
+                    // Rating
+
+                    TextSpan(
+                      text: ' ' + tutorBriefInfo.rating.toString(),
+                    ),
+
+                    // Currency symbol
+
+                    TextSpan(
+                      text: '    ' + String.fromCharCode(8377),
+                      style: TextStyle(
+                        color: Colors.yellow.shade800,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+
+                    // Charge
+
+                    TextSpan(
+                      text: ' ' + tutorBriefInfo.charge.toString(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+
+                    // Charge duration
+
+                    TextSpan(
+                      text: '/' +
+                          tutorBriefInfo.chargeDuration
+                              .toLowerCase()
+                              .substring(0, 1),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );

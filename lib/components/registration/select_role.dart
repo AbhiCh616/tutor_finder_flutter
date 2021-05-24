@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_finder_flutter/components/registration/tutor/basic_info.dart';
+import 'package:tutor_finder_flutter/components/search/screens/search_screen.dart';
+import 'package:tutor_finder_flutter/components/student_search/screens/tutor_list.dart';
 
 class SelectRole extends StatelessWidget {
   @override
@@ -95,7 +97,13 @@ class SelectRole extends StatelessWidget {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        print("tapped");
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (_, __, ___) => TutorList(),
+                          ),
+                          ModalRoute.withName('/'),
+                        );
                       },
                       borderRadius: BorderRadius.all(Radius.circular(26)),
                       child: Padding(

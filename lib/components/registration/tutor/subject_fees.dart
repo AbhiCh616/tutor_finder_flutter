@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_finder_flutter/components/registration/logic/tutor_registration.dart';
-import 'package:tutor_finder_flutter/components/registration/tutor/basic_info.dart';
+import 'package:tutor_finder_flutter/components/search/screens/search_screen.dart';
 import 'package:tutor_finder_flutter/components/student_search/screens/student_search.dart';
-import 'package:tutor_finder_flutter/components/student_search/screens/tutor_list.dart';
 
 class SubjectFees extends StatefulWidget {
   @override
@@ -63,6 +61,7 @@ class _SubjectFeesState extends State<SubjectFees> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
@@ -238,12 +237,13 @@ class _SubjectFeesState extends State<SubjectFees> {
                   child: TextButton(
                     onPressed: () {
                       //createTutorProfile();
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                         context,
                         PageRouteBuilder(
                           transitionDuration: Duration(seconds: 2),
-                          pageBuilder: (_, __, ___) => StudentSearch(),
+                          pageBuilder: (_, __, ___) => SearchScreen(),
                         ),
+                        ModalRoute.withName('/'),
                       );
                     },
                     child: Text(

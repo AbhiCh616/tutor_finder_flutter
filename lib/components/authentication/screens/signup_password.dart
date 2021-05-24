@@ -3,7 +3,7 @@ import 'package:tutor_finder_flutter/components/authentication/logic/user.dart';
 import 'dart:math' as math;
 
 import 'package:tutor_finder_flutter/components/authentication/logic/validators.dart';
-import 'package:tutor_finder_flutter/components/search/screens/search_screen.dart';
+import 'package:tutor_finder_flutter/components/registration/select_role.dart';
 
 class SignupPassword extends StatefulWidget {
   final String email;
@@ -43,7 +43,7 @@ class _SignupPasswordState extends State<SignupPassword> {
   }
 
   signUp() async {
-    await createUser(widget.email, password);
+    /*await createUser(widget.email, password);
 
     if (await isLoggedIn()) {
       Navigator.pushAndRemoveUntil(
@@ -54,6 +54,14 @@ class _SignupPasswordState extends State<SignupPassword> {
         ModalRoute.withName('/'),
       );
     }
+    */
+    Navigator.pushAndRemoveUntil(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (_, __, ___) => SelectRole(),
+      ),
+      ModalRoute.withName('/'),
+    );
   }
 
   @override
