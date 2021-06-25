@@ -87,6 +87,11 @@ class TutorProfile extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.chat),
+        backgroundColor: Colors.blue,
+      ),
     );
   }
 }

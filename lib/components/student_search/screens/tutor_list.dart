@@ -99,7 +99,7 @@ class _TutorListState extends State<TutorList> {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               createHeading(),
-              createSearchBar(),
+              createSearchBar(context),
             ];
           },
           body: ListView.builder(
@@ -135,7 +135,7 @@ SliverAppBar createHeading() {
   );
 }
 
-SliverAppBar createSearchBar() {
+SliverAppBar createSearchBar(BuildContext context) {
   return SliverAppBar(
     pinned: false,
     snap: true,
@@ -164,7 +164,9 @@ SliverAppBar createSearchBar() {
                 'assets/icons/filter.png',
                 height: 13,
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(context: context, builder: (_) => FilterDialog());
+              },
             ),
             filled: true,
             fillColor: Colors.white,
@@ -181,6 +183,64 @@ SliverAppBar createSearchBar() {
       ),
     ),
   );
+}
+
+class FilterDialog extends StatefulWidget {
+  @override
+  _FilterDialogState createState() => _FilterDialogState();
+}
+
+class _FilterDialogState extends State<FilterDialog> {
+  RangeValues _currentRangeValues = const RangeValues(0, 10000);
+  double _currentSliderValue = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Filter & Sort'),
+      content: (Column(
+        children: [
+          Text('Price'),
+          RangeSlider(
+            values: _currentRangeValues,
+            min: 0,
+            max: 10000,
+            divisions: 10,
+            labels: RangeLabels(
+              _currentRangeValues.start.round().toString(),
+              _currentRangeValues.end.round().toString(),
+            ),
+            onChanged: (RangeValues values) {
+              setState(() {
+                _currentRangeValues = values;
+              });
+            },
+          ),
+          Text('Min Stars'),
+          Slider(
+            value: _currentSliderValue,
+            min: 0,
+            max: 5,
+            divisions: 5,
+            label: _currentSliderValue.round().toString(),
+            onChanged: (double value) {
+              setState(() {
+                _currentSliderValue = value;
+              });
+            },
+          ),
+        ],
+      )),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('Cancel')),
+        TextButton(onPressed: () {}, child: Text('Apply')),
+      ],
+    );
+  }
 }
 
 SliverAppBar createSearchTagsBar(List<String> subjects) {
@@ -250,6 +310,8 @@ Widget createTutorTile(TutorBriefInfo tutorBriefInfo, BuildContext context) =>
                 ),
               ),
             ),
+
+            // Buttons
 
             // Rating and Charge
 
