@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_finder_flutter/components/registration/tutor/id_proof.dart';
 import 'package:tutor_finder_flutter/components/search/screens/search_screen.dart';
 import 'package:tutor_finder_flutter/components/student_search/screens/student_search.dart';
 
@@ -236,14 +237,12 @@ class _SubjectFeesState extends State<SubjectFees> {
                   width: 500,
                   child: TextButton(
                     onPressed: () {
-                      //createTutorProfile();
-                      Navigator.pushAndRemoveUntil(
+                      Navigator.push(
                         context,
                         PageRouteBuilder(
                           transitionDuration: Duration(seconds: 2),
-                          pageBuilder: (_, __, ___) => SearchScreen(),
+                          pageBuilder: (_, __, ___) => IDTutReg(),
                         ),
-                        ModalRoute.withName('/'),
                       );
                     },
                     child: Text(
