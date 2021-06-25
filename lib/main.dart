@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_finder_flutter/components/authentication/screens/boot.dart';
 import 'package:tutor_finder_flutter/components/registration/tutor/basic_info.dart';
-import 'package:tutor_finder_flutter/components/registration/tutor/id_proof.dart';
-import 'package:tutor_finder_flutter/components/registration/tutor/subject_fees.dart';
+import 'package:tutor_finder_flutter/components/search/screens/search_screen.dart';
 
 void main() => runApp(
       MaterialApp(
         theme: ThemeData(fontFamily: 'Poppins'),
         debugShowCheckedModeBanner: false,
-        home: BasicInfo(),
+        home: SearchScreen(),
       ),
     );
