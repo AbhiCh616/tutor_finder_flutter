@@ -1,13 +1,49 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:tutor_finder_flutter/components/registration/utils/constants.dart';
 import 'package:tutor_finder_flutter/utils/color.dart';
 import 'package:tutor_finder_flutter/components/tutor_profile/models/review.dart';
+import 'package:http/http.dart' as http;
 
-class TutorProfile extends StatelessWidget {
+class TutorProfile extends StatefulWidget {
   final String name;
   final double averageRating;
-  final List<Review> reviews;
+  final int id;
 
-  TutorProfile(this.name, this.averageRating, this.reviews);
+  TutorProfile(this.name, this.averageRating, this.id);
+
+  @override
+  _TutorProfileState createState() => _TutorProfileState();
+}
+
+class _TutorProfileState extends State<TutorProfile> {
+  List<Review> reviews = [];
+
+  void fetchReviews() async {
+    List<Review> reviewsList = [];
+    final response3 = await http.get(
+        Uri.parse(BASE_URL + '/api/tutors/get-reviews/?tutor_id=${widget.id}'));
+
+    if (response3.statusCode == 200) {
+      var data = json.decode(response3.body);
+      if (data != null) {
+        data.forEach((v) {
+          reviewsList.add(Review.fromJson(v));
+        });
+      }
+    }
+
+    setState(() {
+      reviews = reviewsList;
+    });
+  }
+
+  @override
+  void initState() {
+    fetchReviews();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +66,7 @@ class TutorProfile extends StatelessWidget {
             Container(),
             // Name
             Text(
-              this.name,
+              this.widget.name,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -40,7 +76,7 @@ class TutorProfile extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 16),
               child: getRatingWidget(
-                this.averageRating,
+                this.widget.averageRating,
                 Colors.yellow.shade700,
               ),
             ),

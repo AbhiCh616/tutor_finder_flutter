@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:tutor_finder_flutter/components/registration/utils/constants.dart';
 import 'package:tutor_finder_flutter/components/student_search/models/tutor_brief_info.dart';
-import 'package:tutor_finder_flutter/utils/color.dart';
 import 'package:tutor_finder_flutter/components/tutor_profile/models/review.dart';
+import 'package:tutor_finder_flutter/utils/color.dart';
 import 'package:tutor_finder_flutter/components/tutor_profile/screens/tutor_profile.dart';
+import 'package:http/http.dart' as http;
 
 class TutorList extends StatefulWidget {
   @override
@@ -10,85 +14,60 @@ class TutorList extends StatefulWidget {
 }
 
 class _TutorListState extends State<TutorList> {
-  final List<TutorBriefInfo> tutorBriefInfoList = [
-    TutorBriefInfo(
-      'Anamika Singh',
-      0.0,
-      ["english", "science", "maths"],
-      5000,
-      "Monthly",
-      [],
-    ),
-    TutorBriefInfo(
-      'Abhishek Chouhan',
-      4.3,
-      ["A"],
-      100,
-      "Hourly",
-      [
-        Review(4.3, '16 Mar \'19', 'He teaches good!'),
-        Review(4.3, '20 Feb \'21',
-            'The best thing I liked about his teaching style is the way of the.')
-      ],
-    ),
-    TutorBriefInfo(
-      'Achal Yash',
-      4,
-      ["CS"],
-      10000,
-      "Yearly",
-      [
-        Review(5.0, '15 Jan \'20', 'Had been long but he teaches good!'),
-        Review(4.0, '20 Feb \'21', 'The best teacher for CS.'),
-      ],
-    ),
-    TutorBriefInfo(
-      'Sushmita Tiwari',
-      4.3,
-      ["A"],
-      100,
-      "Hourly",
-      [
-        Review(4.3, '16 Mar \'19', 'He teaches good!'),
-        Review(4.3, '20 Feb \'21',
-            'The best thing I liked about his teaching style is the way of the.')
-      ],
-    ),
-    TutorBriefInfo(
-      'Ray Yash',
-      4,
-      ["CS"],
-      10000,
-      "Yearly",
-      [
-        Review(5.0, '15 Jan \'20', 'Had been long but he teaches good!'),
-        Review(4.0, '20 Feb \'21', 'The best teacher for CS.'),
-      ],
-    ),
-    TutorBriefInfo(
-      'Aakash Choubey',
-      4.3,
-      ["A"],
-      100,
-      "Hourly",
-      [
-        Review(4.3, '16 Mar \'19', 'He teaches good!'),
-        Review(4.3, '20 Feb \'21',
-            'The best thing I liked about his teaching style is the way of the.')
-      ],
-    ),
-    TutorBriefInfo(
-      'Anand Jain',
-      4,
-      ["CS"],
-      10000,
-      "Yearly",
-      [
-        Review(5.0, '15 Jan \'20', 'Had been long but he teaches good!'),
-        Review(4.0, '20 Feb \'21', 'The best teacher for CS.'),
-      ],
-    ),
-  ];
+  List<TutorBriefInfo> tutorBriefInfoList = [];
+
+  void fetchTutors() async {
+    List<TutorBriefInfo> returnList = [];
+    final response =
+        await http.get(Uri.parse(BASE_URL + '/api/tutors/tutors/'));
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+      // print(data[1]);
+      // print(data.runtimeType);
+      // var data2 = data.asMap();
+      // print(data2.runtimeType);
+      // print(data.length);
+      // for (var i = 0; i < data.length; i++) {
+      //   returnList.add(TutorBriefInfo.fromJson(data[i], 0));
+      // }
+      if (data != null) {
+        data.forEach((v) async {
+          var uri = Uri.parse(
+              BASE_URL + '/api/tutors/get-rating/?tutor_id=${v['id']}');
+          var resRate = await http.get(uri);
+          double rating = json.decode(resRate.body)['rating__avg'];
+          rating = double.parse(rating.toStringAsFixed(2));
+          //print(resRate.body);
+
+          List<Review> reviewsList = [];
+          // final response3 = await http.get(Uri.parse(
+          //     'http://10.0.2.2:8000/api/tutors/get-reviews/?tutor_id=129'));
+
+          // if (response3.statusCode == 200) {
+          //   var data = json.decode(response3.body);
+          //   if (data != null) {
+          //     data.forEach((v) {
+          //       reviewsList.add(Review.fromJson(v));
+          //     });
+          //   }
+          // }
+
+          returnList.add(TutorBriefInfo.fromJson(v, rating, reviewsList));
+        });
+      }
+    }
+
+    setState(() {
+      tutorBriefInfoList = returnList;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchTutors();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -266,8 +245,8 @@ Widget createTutorTile(TutorBriefInfo tutorBriefInfo, BuildContext context) =>
           context,
           PageRouteBuilder(
             transitionDuration: Duration(seconds: 2),
-            pageBuilder: (_, __, ___) => TutorProfile(tutorBriefInfo.name,
-                tutorBriefInfo.rating, tutorBriefInfo.reviews),
+            pageBuilder: (_, __, ___) => TutorProfile(
+                tutorBriefInfo.name, tutorBriefInfo.rating, tutorBriefInfo.id),
           ),
         );
       },
@@ -356,7 +335,8 @@ Widget createTutorTile(TutorBriefInfo tutorBriefInfo, BuildContext context) =>
                     // Charge
 
                     TextSpan(
-                      text: ' ' + tutorBriefInfo.charge.toString(),
+                      text: ' ' +
+                          tutorBriefInfo.subjectBundles[0].charge.toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                       ),
@@ -366,9 +346,8 @@ Widget createTutorTile(TutorBriefInfo tutorBriefInfo, BuildContext context) =>
 
                     TextSpan(
                       text: '/' +
-                          tutorBriefInfo.chargeDuration
-                              .toLowerCase()
-                              .substring(0, 1),
+                          tutorBriefInfo.subjectBundles[0].chargeCycle
+                              .toString(),
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
